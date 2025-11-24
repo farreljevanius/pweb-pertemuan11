@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Tambah pelanggan
 if (isset($_POST['tambah'])) {
     $nama = mysqli_real_escape_string($conn, $_POST['nama']);
     $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
@@ -20,7 +19,6 @@ if (isset($_POST['tambah'])) {
     }
 }
 
-// Hapus pelanggan
 if (isset($_GET['hapus'])) {
     $id = intval($_GET['hapus']);
     $query = "DELETE FROM pelanggan WHERE id_pelanggan = $id";
@@ -31,7 +29,6 @@ if (isset($_GET['hapus'])) {
     }
 }
 
-// Ambil data pelanggan
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
 $query = "SELECT * FROM pelanggan WHERE nama LIKE '%$search%' ORDER BY id_pelanggan DESC";
 $result = mysqli_query($conn, $query);
@@ -122,4 +119,5 @@ $result = mysqli_query($conn, $query);
         </div>
     </div>
 </body>
+
 </html>
