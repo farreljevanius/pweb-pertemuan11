@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Tambah layanan
 if (isset($_POST['tambah'])) {
     $nama_layanan = mysqli_real_escape_string($conn, $_POST['nama_layanan']);
     $harga_per_kg = floatval($_POST['harga_per_kg']);
@@ -19,7 +18,6 @@ if (isset($_POST['tambah'])) {
     }
 }
 
-// Edit layanan
 if (isset($_POST['edit'])) {
     $id = intval($_POST['id_layanan']);
     $nama_layanan = mysqli_real_escape_string($conn, $_POST['nama_layanan']);
@@ -33,7 +31,6 @@ if (isset($_POST['edit'])) {
     }
 }
 
-// Hapus layanan
 if (isset($_GET['hapus'])) {
     $id = intval($_GET['hapus']);
     $query = "DELETE FROM layanan WHERE id_layanan = $id";
@@ -44,14 +41,12 @@ if (isset($_GET['hapus'])) {
     }
 }
 
-// Ambil data untuk edit
 $edit_data = null;
 if (isset($_GET['edit'])) {
     $id = intval($_GET['edit']);
     $edit_data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM layanan WHERE id_layanan = $id"));
 }
 
-// Ambil semua layanan
 $result = mysqli_query($conn, "SELECT * FROM layanan ORDER BY id_layanan");
 ?>
 <!DOCTYPE html>
@@ -137,4 +132,5 @@ $result = mysqli_query($conn, "SELECT * FROM layanan ORDER BY id_layanan");
         </div>
     </div>
 </body>
+
 </html>
