@@ -6,12 +6,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Filter laporan
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'bulan';
 $tanggal_dari = isset($_GET['tanggal_dari']) ? $_GET['tanggal_dari'] : date('Y-m-01');
 $tanggal_sampai = isset($_GET['tanggal_sampai']) ? $_GET['tanggal_sampai'] : date('Y-m-d');
 
-// Query berdasarkan filter
 if ($filter == 'hari') {
     $where = "DATE(tanggal_masuk) = CURDATE()";
     $judul = "Hari Ini";
@@ -26,7 +24,6 @@ if ($filter == 'hari') {
     $judul = "Custom";
 }
 
-// Ambil data transaksi
 $query = "SELECT t.*, p.nama, l.nama_layanan 
           FROM transaksi t
           JOIN pelanggan p ON t.id_pelanggan = p.id_pelanggan
@@ -35,12 +32,10 @@ $query = "SELECT t.*, p.nama, l.nama_layanan
           ORDER BY t.tanggal_masuk DESC";
 $result = mysqli_query($conn, $query);
 
-// Hitung total pendapatan
 $total_query = "SELECT SUM(total_harga) as total FROM transaksi WHERE $where";
 $total_result = mysqli_fetch_assoc(mysqli_query($conn, $total_query));
 $total_pendapatan = $total_result['total'] ?? 0;
 
-// Hitung jumlah transaksi
 $jumlah_transaksi = mysqli_num_rows($result);
 ?>
 <!DOCTYPE html>
@@ -127,4 +122,5 @@ $jumlah_transaksi = mysqli_num_rows($result);
         </div>
     </div>
 </body>
+
 </html>
